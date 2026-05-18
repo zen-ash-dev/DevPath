@@ -48,7 +48,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfolio of [Your Name] — [Your Title]" />
-  <title>[Your Name] — Portfolio</title>
+  <title>SMRITHI KRISHNA — Portfolio</title>
 
   <!-- Google Fonts -->
   <link
@@ -61,6 +61,25 @@
        CSS CUSTOM PROPERTIES
        Change these to reskin the entire site instantly.
        ============================================================== */
+       /* =========================
+   DARK MODE VARIABLES
+   ========================= */
+
+body.dark {
+  --color-text: #f9fafb;
+  --color-text-mid: #d1d5db;
+  --color-text-light: #9ca3af;
+
+  --color-bg: #0f172a;
+  --color-bg-soft: #111827;
+  --color-bg-hero: #0b1220;
+
+  --color-border: #1f2937;
+
+  --color-primary: #60a5fa;
+  --color-primary-dk: #3b82f6;
+}
+
     :root {
       --color-primary:    #2335c2;
       --color-primary-dk: #1a1f6e;
@@ -240,21 +259,25 @@
 
     /* Mobile nav drawer */
     .nav-mobile {
-      display: none;
-      flex-direction: column;
-      padding: 12px 28px 20px;
-      border-top: 1px solid var(--color-border);
-      background: var(--color-bg);
-    }
-    .nav-mobile.open { display: flex; }
-    .nav-mobile a {
-      padding: 11px 0;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--color-text-mid);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .nav-mobile a:last-child { border-bottom: none; }
+  display: flex;
+  flex-direction: column;
+  padding: 12px 28px 20px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+
+  /* NEW: hidden state */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.nav-mobile.open {
+  max-height: 300px;
+  opacity: 1;
+  transform: translateY(0);
+}
 
     /* ==============================================================
        HERO SECTION
@@ -681,7 +704,12 @@
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <!-- TODO Step 2: Replace [YN] with your initials and [Your Name] below -->
-      <a href="#home" class="nav-logo">[<span>YN</span>]</a>
+      <a href="#home" class="nav-logo">[<span>SK</span>]</a>
+<li>
+  <button id="theme-toggle" class="nav-link" style="background:none;border:none;cursor:pointer;">
+  🌙
+</button>
+</li>
 
       <ul class="nav-links">
         <li><a href="#home"     class="nav-link active">Home</a></li>
@@ -726,14 +754,14 @@
         <!-- TODO Step 2: Replace with your real name and title -->
         <h1 class="hero-heading">
           Hi, I am<br>
-          <span class="accent">[Your Name]</span>
+          <span class="accent">SMRITHI KRISHNA</span>
         </h1>
 
         <!-- TODO Step 2: Write 2-3 sentences about yourself -->
         <p class="hero-sub">
-          A [Beginner / Junior / Intermediate] developer passionate about
-          building useful things with code. I specialise in [Python / Web
-          Development / Data] and I am looking to contribute to real
+          A Junior  developer passionate about
+          building useful things with code. I specialise in Web
+          Development and I am looking to contribute to real
           projects while growing my skills.
         </p>
 
@@ -749,7 +777,7 @@
           <!-- Replace this entire div with:
                <img src="your-photo.jpg" alt="[Your Name]" class="hero-avatar" />
           -->
-          YN
+          SK
         </div>
       </div>
     </div>
@@ -1027,13 +1055,13 @@
        ============================================================ -->
   <footer class="footer">
     <!-- TODO Step 2: Replace [Your Name] and [Your Title] -->
-    <div class="footer-name">[Your Name]</div>
-    <p class="footer-tagline">[Your Title] — Building things that matter</p>
+    <div class="footer-name">SMRITHI KRISHNA</div>
+    <p class="footer-tagline">Frontend Developer — Building things that matter</p>
 
     <div class="footer-links">
       <!-- TODO Step 2: Replace # with your real profile URLs -->
-      <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="#" target="_blank" rel="noopener noreferrer">https://github.com/Smrithikrishna123</a>
+      <a href="#" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/smrithi-krishna-741a37374/</a>
       <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
       <a href="mailto:you@example.com">Email</a>
     </div>
@@ -1064,8 +1092,67 @@
     //   5. Remove "active" class from all nav links.
     //   6. Add "active" class to the link whose href matches #<section.id>.
     // ==========================================================
+// =========================
+// DARK MODE TOGGLE
+// =========================
+
+function initTheme() {
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "dark") {
+    body.classList.add("dark");
+    toggleBtn.textContent = "☀️";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    body.classList.toggle("dark");
+
+    if (body.classList.contains("dark")) {
+      toggleBtn.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
+    } else {
+      toggleBtn.textContent = "🌙";
+      localStorage.setItem("theme", "light");
+    }
+  });
+}
+
+
+
     function initNavigation() {
-      // --- Write your code here ---
+       const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll("section[id]");
+
+  function updateActiveLink() {
+    let currentSection = "";
+
+    sections.forEach((section) => {
+      const sectionTop =
+        section.offsetTop - window.innerHeight / 2;
+
+      if (window.scrollY >= sectionTop) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+
+      if (
+        link.getAttribute("href") === `#${currentSection}`
+      ) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink);
+
+  updateActiveLink();
 
     }
 
@@ -1091,11 +1178,25 @@
     // ==========================================================
     function toggleMenu() {
       // --- Write your code here ---
+       const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("nav-mobile");
 
+  hamburger.classList.toggle("open");
+  mobileNav.classList.toggle("open");
+
+  const isOpen = hamburger.classList.contains("open");
+  hamburger.setAttribute("aria-expanded", isOpen);
     }
 
     function closeMenu() {
       // --- Write your code here ---
+       const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("nav-mobile");
+
+  hamburger.classList.remove("open");
+  mobileNav.classList.remove("open");
+
+  hamburger.setAttribute("aria-expanded", "false");
 
     }
 
@@ -1120,6 +1221,13 @@
     // ==========================================================
     function animateSkillBars() {
       // --- Write your code here ---
+      const bars = document.querySelectorAll(".skill-bar");
+
+  bars.forEach((bar) => {
+    const pct = bar.getAttribute("data-pct");
+
+    bar.style.width = pct + "%";
+  });
 
     }
 
@@ -1147,6 +1255,31 @@
     // ==========================================================
     function initScrollReveal() {
       // --- Write your code here ---
+      const revealElements =
+    document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+
+          if (entry.target.closest("#skills")) {
+            animateSkillBars();
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+    }
+  );
+
+  revealElements.forEach((el) => {
+    observer.observe(el);
+  });
 
     }
 
@@ -1182,9 +1315,96 @@
       var isValid = true;
 
       // --- Write your validation code here ---
+ 
+  const name = document
+    .getElementById("name")
+    .value.trim();
 
-      return isValid;
-    }
+  const email = document
+    .getElementById("email")
+    .value.trim();
+
+  const subject = document
+    .getElementById("subject")
+    .value.trim();
+
+  const message = document
+    .getElementById("message")
+    .value.trim();
+
+  function showError(field, messageText) {
+    document.getElementById(
+      `${field}-error`
+    ).textContent = messageText;
+
+    document
+      .getElementById(field)
+      .classList.add("error-field");
+
+    isValid = false;
+  }
+
+  function clearError(field) {
+    document.getElementById(
+      `${field}-error`
+    ).textContent = "";
+
+    document
+      .getElementById(field)
+      .classList.remove("error-field");
+  }
+
+  // Name validation
+  if (name.length < 2) {
+    showError("name", "Name must be at least 2 characters");
+  } else {
+    clearError("name");
+  }
+
+  // Email validation
+  if (
+    !email.includes("@") ||
+    !email.includes(".")
+  ) {
+    showError("email", "Enter a valid email address");
+  } else {
+    clearError("email");
+  }
+
+  // Subject validation
+  if (subject.length < 3) {
+    showError(
+      "subject",
+      "Subject must be at least 3 characters"
+    );
+  } else {
+    clearError("subject");
+  }
+
+  // Message validation
+  if (message.length < 10) {
+    showError(
+      "message",
+      "Message must be at least 10 characters"
+    );
+  } else {
+    clearError("message");
+  }
+
+  // Success
+  if (isValid) {
+    document.getElementById(
+      "contact-form"
+    ).style.display = "none";
+
+    document.getElementById(
+      "form-success"
+    ).style.display = "block";
+  }
+
+  return isValid;
+}
+    
 
 
     // ==========================================================
@@ -1200,9 +1420,29 @@
     // Initialise everything on page load
     // ==========================================================
     document.addEventListener("DOMContentLoaded", function() {
-      initNavigation();
-      initScrollReveal();
-    });
+  initNavigation();
+  initScrollReveal();
+  initTheme();
+});
+
+
+document.querySelectorAll(".nav-mobile a").forEach((link) => {
+  link.addEventListener("click", closeMenu);
+});
+
+
+document.addEventListener("click", (e) => {
+  const mobileNav = document.getElementById("nav-mobile");
+  const hamburger = document.getElementById("hamburger");
+
+  const isClickInsideMenu = mobileNav.contains(e.target);
+  const isClickHamburger = hamburger.contains(e.target);
+
+  if (!isClickInsideMenu && !isClickHamburger) {
+    closeMenu();
+  }
+});
+
   </script>
 
 </body>
