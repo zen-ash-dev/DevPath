@@ -3213,6 +3213,40 @@ html[data-theme="dark"] select:focus {
 
 html[data-theme="dark"] .skill-input-wrap input[type="text"] {
   color: var(--gray-700);
+.tooltip {
+  position: relative;
+  color: #6366f1;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 260px;
+
+  background: #6366f1;
+  color: #ffffff;
+
+  padding: 8px 10px;
+  border-radius: 8px;
+
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 400;
+
+  z-index: 1000;
+
+  transition: opacity 0.2s ease;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 html[data-theme="dark"] .skill-input-wrap {
