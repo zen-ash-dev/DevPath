@@ -466,10 +466,16 @@
         <p class="form-error-general" id="form-error-general"></p>
 
         <!-- Submit button -->
-        <button type="submit" class="btn-submit" id="submit-btn">
-          <span id="btn-label">Generate My Projects</span>
-          <span id="btn-loading" style="display:none;">Finding matches...</span>
-        </button>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submit-btn">
+                <span id="btn-label">Generate My Projects</span>
+              <span id="btn-loading" style="display:none;">Finding matches...</span>
+            </button>
+
+            <button type="button" class="btn-clear" id="clear-filters-btn">
+              <span>Clear Filters</span>
+            </button>
+        </div>
 
         </form>
       </div>
