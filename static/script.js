@@ -533,6 +533,7 @@ if (clearFiltersBtn) {
     });
   });
 
+
   // Manages the loading state of the form and results section(whats visible or not)
   function setLoadingState(isLoading) {
     // Disable the button so the user can't accidentally submit twice
@@ -571,7 +572,21 @@ if (clearFiltersBtn) {
     if (!projects || projects.length === 0) { //if no projects returned from api, show the "no results" message and hide the grid
       resultsGrid.style.display = "none";
       resultsEmptyEl.style.display = "block";
-      if (message && emptyMessageEl) emptyMessageEl.textContent = message; //if api sent back a message (e.g. "no projects found matching your criteria"), show that
+
+      var interestEl = document.getElementById("interest");
+      var selectedInterest = interestEl ? interestEl.value : null;
+
+      // Show a friendly custom message when the user selected an interest
+      if (emptyMessageEl) {
+        if (selectedInterest) {
+          emptyMessageEl.textContent = "No projects are currently available for this interest. Please check back later or try a different area.";
+        } else if (message) {
+          emptyMessageEl.textContent = message;
+        } else {
+          emptyMessageEl.textContent = "Try adjusting your skills or choosing a different interest area.";
+        }
+      }
+
       resultsSection.scrollIntoView({ behavior: "smooth" });
       return;
     }
@@ -608,8 +623,8 @@ if (clearFiltersBtn) {
     var tagsRow = document.createElement("div");
     tagsRow.className = "project-card-tags";
 
-    // Show the first two skills as tags
-    (project.skills || []).slice(0, 2).forEach(function (skill) {
+    // Show all project skills as tags so users can see the full match
+    (project.skills || []).forEach(function (skill) {
       tagsRow.appendChild(createTag(skill, "skill"));
     });
 
