@@ -248,5 +248,36 @@
     ],
     "starter_code": "starter_code/password_checker.py"
   }
+  ,
+  {
+    "id": 9,
+    "title": "Sunrise Grand Hotel Management System",
+    "skills": ["Python"],
+    "level": "Medium",
+    "interest": "Business Logic",
+    "time": "Medium",
+    "description": "A robust CLI application to manage a 40-room inventory with tiered pricing, guest booking logic, and automatic billing calculation.",
+    "features": [
+      "Dynamic 40-room inventory across 4 luxury categories",
+      "Real-time availability filtering and room status tracking",
+      "Booking engine with 10-digit contact validation",
+      "Automatic stay duration and total price calculation",
+      "Cancellation logic and detailed guest lookup"
+    ],
+    "tech_stack": ["Python", "Dictionaries", "Input Validation"],
+    "roadmap": [
+      "Step 1: Initialize the 40-room inventory with tiered pricing",
+      "Step 2: Implement availability display and category filtering",
+      "Step 3: Build the booking engine with contact validation",
+      "Step 4: Create the cancellation and guest detail lookup logic",
+      "Step 5: Wrap all logic in a persistent main menu loop"
+    ],
+    "resources": [
+      "Python Dictionaries: https://docs.python.org/3/tutorial/datastructures.html#dictionaries",
+      "Python Input Validation: https://realpython.com/python-input-output/",
+      "Menu-driven CLI logic: https://www.geeksforgeeks.org/how-to-create-a-menu-driven-program-in-python/"
+    ],
+    "starter_code": "starter_code/hotel_management.py"
+  }
 ]
 
