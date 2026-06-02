@@ -3313,6 +3313,27 @@ html[data-theme="dark"] .feature-card-icon {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.line-content {
+  flex: 1;
+  white-space: pre;
+  color: #e6edf3;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #6366f1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  text-decoration: underline;
+}
+
+.read-more-btn:hover {
+  color: #4f46e5;
+}
 /* Error page large code number */
 html[data-theme="dark"] .error-code { color: var(--gray-300); }
 
